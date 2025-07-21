@@ -2,22 +2,19 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '../common/db.js';
 import { validarActor } from './actor.js';
 
-// Constante global para la colección
 const actorCollection = () => getDatabase().collection('actores');
 const peliculaCollection = () => getDatabase().collection('peliculas');
 
-// Controlador para insertar actor
 export const handleInsertActorRequest = async (req, res) => {
     try {
         const nuevoActor = req.body;
-        
-        // Validar estructura
+     
         const errores = validarActor(nuevoActor);
         if (errores.length > 0) {
             return res.status(400).json({ error: errores });
         }
         
-        // Validar que la película existe por nombre
+
         const peliculaExiste = await peliculaCollection().findOne({ 
             nombre: nuevoActor.idPelicula 
         });
@@ -36,7 +33,6 @@ export const handleInsertActorRequest = async (req, res) => {
     }
 };
 
-// Controlador para obtener todos los actores
 export const handleGetActoresRequest = async (req, res) => {
     try {
         const actores = await actorCollection().find({}).toArray();
@@ -47,12 +43,11 @@ export const handleGetActoresRequest = async (req, res) => {
     }
 };
 
-// Controlador para obtener actor por ID
 export const handleGetActorByIdRequest = async (req, res) => {
     try {
         const { id } = req.params;
         
-        // Validar ObjectId
+
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ error: 'Id mal formado' });
         }
@@ -70,7 +65,6 @@ export const handleGetActorByIdRequest = async (req, res) => {
     }
 };
 
-// Controlador para obtener actores por película
 export const handleGetActoresByPeliculaIdRequest = async (req, res) => {
     try {
         const { pelicula } = req.params;
