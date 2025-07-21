@@ -2,15 +2,13 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '../common/db.js';
 import { validarPelicula } from './pelicula.js';
 
-// Constante global para la colección
 const peliculaCollection = () => getDatabase().collection('peliculas');
 
-// Controlador para insertar película
 export const handleInsertPeliculaRequest = async (req, res) => {
     try {
         const nuevaPelicula = req.body;
         
-        // Validar estructura
+
         const errores = validarPelicula(nuevaPelicula);
         if (errores.length > 0) {
             return res.status(400).json({ error: errores });
@@ -24,7 +22,6 @@ export const handleInsertPeliculaRequest = async (req, res) => {
     }
 };
 
-// Controlador para obtener todas las películas
 export const handleGetPeliculasRequest = async (req, res) => {
     try {
         const peliculas = await peliculaCollection().find({}).toArray();
@@ -35,12 +32,10 @@ export const handleGetPeliculasRequest = async (req, res) => {
     }
 };
 
-// Controlador para obtener película por ID
 export const handleGetPeliculaByIdRequest = async (req, res) => {
     try {
         const { id } = req.params;
         
-        // Validar ObjectId
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ error: 'Id mal formado' });
         }
@@ -58,13 +53,11 @@ export const handleGetPeliculaByIdRequest = async (req, res) => {
     }
 };
 
-// Controlador para actualizar película por ID
 export const handleUpdatePeliculaByIdRequest = async (req, res) => {
     try {
         const { id } = req.params;
         const actualizacion = req.body;
         
-        // Validar ObjectId
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ error: 'Id mal formado' });
         }
@@ -86,12 +79,10 @@ export const handleUpdatePeliculaByIdRequest = async (req, res) => {
     }
 };
 
-// Controlador para eliminar película por ID
 export const handleDeletePeliculaByIdRequest = async (req, res) => {
     try {
         const { id } = req.params;
         
-        // Validar ObjectId
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ error: 'Id mal formado' });
         }
