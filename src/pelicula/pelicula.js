@@ -1,4 +1,4 @@
-/// Schema para Pelicula
+
 export const Pelicula = {
     _id: "ObjectId",
     nombre: "string",
@@ -6,7 +6,6 @@ export const Pelicula = {
     anioEstreno: "int"
 };
 
-// Función para validar estructura de película
 export const validarPelicula = (pelicula) => {
     const errores = [];
     
