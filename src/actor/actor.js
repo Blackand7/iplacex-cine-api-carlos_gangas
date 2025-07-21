@@ -1,4 +1,4 @@
-// Schema para Actor
+
 export const Actor = {
     _id: "ObjectId",
     idPelicula: "string",
@@ -8,7 +8,7 @@ export const Actor = {
     premios: "array"
 };
 
-// Función para validar estructura de actor
+
 export const validarActor = (actor) => {
     const errores = [];
     
